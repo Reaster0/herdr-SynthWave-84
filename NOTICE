@@ -1,0 +1,46 @@
+SynthWave '84 for Herdr
+
+The mods/sw84-* folders are modified copies of third-party work:
+
+1. Agent Workspace for Herdr by chelebyy (Apache License, Version 2.0;
+   https://github.com/chelebyy/herdr-agent-workspace). Its NOTICE, which also
+   credits Herdr's shipped mods and herdr-quota by Lakris2407 (MIT), is in
+   licenses/agent-workspace-NOTICE; its license in
+   licenses/agent-workspace-LICENSE.txt; its Lucide icons' license in
+   licenses/lucide-LICENSE.txt.
+     mods/sw84-workspace-chrome   from mods/workspace-chrome-tr
+     mods/sw84-tabs               from mods/tabs-tr
+     mods/sw84-agents             from mods/agents-tr
+     mods/sw84-task-presets       from mods/task-presets-tr
+     mods/sw84-menu               from mods/menu-tr
+     mods/sw84-new-menu           from mods/new-menu-tr
+     mods/sw84-files              from mods/files-tr
+     mods/sw84-agent-resources    from mods/agent-resources-tr
+     mods/sw84-workspace-status   from mods/workspace-status-tr
+     mods/sw84-monitor-position   from mods/monitor-position
+
+2. herdr-quota by Lakris2407 (MIT License;
+   https://github.com/Lakris2407/herdr-quota), as modified by Agent Workspace;
+   license in licenses/herdr-quota-LICENSE.txt.
+     mods/sw84-quota              from its "quota" mod
+     mods/sw84-system-windows     from its "system" mod
+
+3. herdr-space-folders by Jankees van Woezik (MIT License;
+   https://github.com/jankeesvw/herdr-space-folders), license in
+   licenses/space-folders-LICENSE.txt. It is a clone of Herdr's shipped
+   "spaces" mod (Apache License, Version 2.0; https://herdr.dev).
+     mods/sw84-space-folders      from mods/space-folders
+
+Changes: renamed to sw84-*; English-only interface (Turkish removed); Android
+and team-pulse parts removed; window buttons at the top left; colours taken
+from the theme instead of fixed values; task presets read from
+~/.agents/tasks.json; quota lists only signed-in providers; the agents list
+shows what each agent works on and groups agents by machine. Each modified main.js starts with a notice naming
+its original.
+
+mods/sw84-space-folders keeps the folders file ~/.config/herdr-space-folders.json
+and mods/sw84-quota the shared quota state under their original names, so an
+installed space-folders or quota mod sees the same folders and readings.
+
+mods/synthwave-84/fonts carries DejaVu Sans Mono (Bitstream Vera license,
+mods/synthwave-84/fonts/LICENSE.txt).

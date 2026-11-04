@@ -9,16 +9,16 @@ A Herdr App layout in the colors of Robb Owen's SynthWave '84 VS Code theme: dee
 Left to right, top to bottom:
 
 - **Sidebar**, 360px wide, background `chrome` (`#241b2f`), not resizable (min 44, max 480; narrower than 160px the mods draw a compact rail):
-  - Brand header, 46px (`workspace-chrome-tr`): window buttons (close, minimise, maximise) at the top left, the Herdr logo and name, search and sidebar-toggle buttons. Dragging it moves the window.
-  - System gauges, 48px (`system-windows`, `monitorSlot: "sidebar-system"`) and quota usage, 145px (`quota`, `monitorSlot: "sidebar-quota"`); the Gauges button decides whether these sit here or in the status bar.
-  - Spaces (`space-folders`) and Agents (`agents-tr`) share the rest, weight 1 each, min 90px. When a remote machine is involved, both lists group by machine under a header (monitor/server icon, name, green dot when connected, fold chevron).
-  - Footer, 69px (`workspace-chrome-tr`, `footer: true`): Settings and Add machine pills, the Herdr version line.
-- **Top bar**, 42px, not resizable: tabs as pills with window drag (`tabs-tr`, weight 1), Gauges button 138px (`monitor-position`), Task presets button 110px (`task-presets-tr`, `launcher: true`).
+  - Brand header, 46px (`sw84-workspace-chrome`): window buttons (close, minimise, maximise) at the top left, the Herdr logo and name, search and sidebar-toggle buttons. Dragging it moves the window.
+  - System gauges, 48px (`sw84-system-windows`, `monitorSlot: "sidebar-system"`) and quota usage, 145px (`sw84-quota`, `monitorSlot: "sidebar-quota"`); the Gauges button decides whether these sit here or in the status bar.
+  - Spaces (`sw84-space-folders`) and Agents (`sw84-agents`) share the rest, weight 1 each, min 90px. When a remote machine is involved, both lists group by machine under a header (monitor/server icon, name, green dot when connected, fold chevron).
+  - Footer, 69px (`sw84-workspace-chrome`, `footer: true`): Settings and Add machine pills, the Herdr version line.
+- **Top bar**, 42px, not resizable: tabs as pills with window drag (`sw84-tabs`, weight 1), Gauges button 138px (`sw84-monitor-position`), Task presets button 110px (`sw84-task-presets`, `launcher: true`).
 - **Work area**, padding 8, gap 8:
   - The shown tab's panes as cards: background `background` (`#262335`), 1px `#495495` border, 2px `#ff7edb` focus ring, radius 10, gap 8, framed even when alone, with a 30px header on top (`pane` mod: program icon, name, folder).
-  - A right panel, 368px (min 280, max 900), hidden until opened: a stack of Files (`files-tr`) and Changes (`changes`).
-  - An agent resources panel, 370px (min 330, max 600), hidden (`agent-resources-tr`).
-- **Status bar**, 28px (`workspace-status-tr`): machine pill, agent counts by state, key hints; optional CPU/RAM/GPU (360px) and quota (470px) blocks, hidden by default.
+  - A right panel, 368px (min 280, max 900), hidden until opened: a stack of Files (`sw84-files`) and Changes (`changes`).
+  - An agent resources panel, 370px (min 330, max 600), hidden (`sw84-agent-resources`).
+- **Status bar**, 28px (`sw84-workspace-status`): machine pill, agent counts by state, key hints; optional CPU/RAM/GPU (360px) and quota (470px) blocks, hidden by default.
 
 Everywhere: background gradient `#2b1d44` → `#171520` at 180°, dividers 1px `#ff7edb40`, terminal padding 14 × 12, no system title bar.
 
@@ -35,11 +35,11 @@ Palette (`themes/synthwave-84.json`): canvas `#171520`, chrome `#241b2f`, surfac
 
 ## Built from
 
-- `layouts/synthwave-84.json`: root `row` → `sidebar` column (brand, sidebar-system, sidebar-quota, sidebar-lists column [spaces, agents], sidebar-footer) and `work` column (topbar row [tabs, monitor-position-button, task-presets-button], work-body row [main tab block, panel column with a `panel-body` stack [files, changes], agent-resources-panel], status row [status-main, status-system, status-quota]). Root fields: `theme: "synthwave-84"`, `font: "DejaVu Sans Mono"`, `background` gradient, `divider`, `terminal_padding`, `titlebar: "none"`, `terminal_menu: "menu-tr"`, `preview`.
+- `layouts/synthwave-84.json`: root `row` → `sidebar` column (brand, sidebar-system, sidebar-quota, sidebar-lists column [spaces, agents], sidebar-footer) and `work` column (topbar row [tabs, monitor-position-button, task-presets-button], work-body row [main tab block, panel column with a `panel-body` stack [files, changes], agent-resources-panel], status row [status-main, status-system, status-quota]). Root fields: `theme: "synthwave-84"`, `font: "DejaVu Sans Mono"`, `background` gradient, `divider`, `terminal_padding`, `titlebar: "none"`, `terminal_menu: "sw84-menu"`, `preview`.
 - `themes/synthwave-84.json`: named like the layout, so Settings offers it only here.
 - `mods/synthwave-84/`: draws nothing; its `fonts/` folder carries DejaVu Sans Mono Regular and Bold (Bitstream Vera licence, `LICENSE.txt`), which Herdr loads at start.
-- Mods from Agent Workspace: `workspace-chrome-tr`, `system-windows`, `quota`, `agents-tr`, `tabs-tr`, `monitor-position`, `task-presets-tr`, `files-tr`, `agent-resources-tr`, `workspace-status-tr`, `menu-tr`. From herdr-space-folders: `space-folders`. Shipped by Herdr: `changes`, `pane`.
-- Programs the mods run: `quota-axi` (quota), `gnome-system-monitor` (system gauges' click), `hc` (agent terminals), `git` (spaces, changes).
+- Its own mods, modified copies of Agent Workspace's (Apache-2.0; quota and system gauges from herdr-quota, MIT) and herdr-space-folders' (MIT), renamed so they never replace an installed copy: `sw84-workspace-chrome`, `sw84-system-windows`, `sw84-quota`, `sw84-agents`, `sw84-tabs`, `sw84-monitor-position`, `sw84-task-presets`, `sw84-files`, `sw84-agent-resources`, `sw84-workspace-status`, `sw84-menu`, `sw84-new-menu`, `sw84-space-folders`. Shipped by Herdr: `changes`, `pane`, `worktree`, `picker`, `machine-add`, and icons from `workspace-chrome` and `files`.
+- Programs the mods run: `quota-axi` (quota), `node` (system gauges, agent resources, task presets), `sh`, `python3` (Pi's first message), a desktop system monitor (`gnome-system-monitor`, `plasma-systemmonitor`, `mate-system-monitor`, `xfce4-taskmanager`, `lxtask`), `hc` (agent terminals), `git` (spaces, changes); on Windows `pwsh`/`powershell`.
 
 ## Watch out
 
@@ -48,7 +48,7 @@ Palette (`themes/synthwave-84.json`): canvas `#171520`, chrome `#241b2f`, surfac
 - Theme colors that get an alpha suffix appended (`color + "99"`) must be 7-digit hex; cut theme values with `.slice(0, 7)`.
 - `done`/`blocked` are not a usable gauge ramp in every theme (grey or near-white in some); the gauges use ANSI green, yellow, bright red and red.
 - Some mods keep fixed brand colours (each agent's own colour, space-folder colours).
-- The layout assumes the Agent Workspace mods are installed with this setup's changes (English only, theme colours, agent subjects, machine headers); the original Turkish/English mods still work but look different.
+- Renaming a mod means renaming its asset paths (`mods/<name>/…`) and every `mod:` it opens; shared state keys of the generic mods (`quota.*`, `space-folders`) keep their names, so data is shared with an installed original.
 
 ## Done when
 
