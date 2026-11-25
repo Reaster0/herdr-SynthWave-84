@@ -33,14 +33,18 @@ export default class WorkspaceChrome extends View {
     // Copy-on-select toast. ponytail: Herdr has no copy event, so this polls the focused selection
     // and toasts once it holds still: a drag paused >300 ms toasts early, and keyboard selections
     // toast though nothing was copied. Use a copy event if Herdr adds one.
-    let last = null, toasted = false;
+    // Per terminal, so focusing one that still holds an old selection stays quiet; 1-cell selections are clicks.
+    let last = null;
+    const toasted = {};
     cx.timer.every(300, (cx) => {
       if (!window()?.visible) return;
-      const f = focused(), s = f?.selection;
-      const key = s ? `${f.terminal}:${s.start.row},${s.start.col}:${s.end.row},${s.end.col}` : null;
-      if (key !== last) toasted = false;
-      else if (key && !toasted) {
-        toasted = true;
+      const f = focused(), s = f?.selection, id = f?.terminal;
+      if (!id) return;
+      if (!s) { delete toasted[id]; last = null; return; }
+      if (s.start.row === s.end.row && s.start.col === s.end.col) { last = null; return; }
+      const key = `${id}:${s.start.row},${s.start.col}:${s.end.row},${s.end.col}`;
+      if (key === last && toasted[id] !== key) {
+        toasted[id] = key;
         const lines = Math.abs(s.end.row - s.start.row) + 1;
         cx.spawn(async () => {
           const text = await readTextFile(`${appHome()}/settings.json`);
