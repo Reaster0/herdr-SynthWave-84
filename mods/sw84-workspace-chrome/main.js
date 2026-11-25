@@ -1,7 +1,7 @@
 // Modified copy of Herdr's shipped "workspace-chrome" mod (Apache-2.0, see NOTICE): see NOTICE for the changes.
 import { View, div, image, svg } from "gpui-kit";
 import { h_flex, v_flex } from "gpui-base";
-import { theme, run, props, window, shared, setShared, updates, layout } from "herdr";
+import { theme, run, props, window, shared, setShared, updates, layout, focused, notify, readTextFile, appHome } from "herdr";
 
 function find(node, id) {
   if (node?.id === id) return node;
@@ -28,6 +28,29 @@ function toggleSidebar() {
 }
 
 export default class WorkspaceChrome extends View {
+  init(_p, cx) {
+    if (props()?.footer) return;
+    // Copy-on-select toast. ponytail: Herdr has no copy event, so this polls the focused selection
+    // and toasts once it holds still: a drag paused >300 ms toasts early, and keyboard selections
+    // toast though nothing was copied. Use a copy event if Herdr adds one.
+    let last = null, toasted = false;
+    cx.timer.every(300, (cx) => {
+      if (!window()?.visible) return;
+      const f = focused(), s = f?.selection;
+      const key = s ? `${f.terminal}:${s.start.row},${s.start.col}:${s.end.row},${s.end.col}` : null;
+      if (key !== last) toasted = false;
+      else if (key && !toasted) {
+        toasted = true;
+        const lines = Math.abs(s.end.row - s.start.row) + 1;
+        cx.spawn(async () => {
+          const text = await readTextFile(`${appHome()}/settings.json`);
+          try { if (JSON.parse(text ?? "{}").copy_on_select === false) return; } catch {}
+          notify({ title: "Copied to clipboard", body: lines > 1 ? `${lines} lines` : undefined, level: "success", timeout: 1500 });
+        });
+      }
+      last = key;
+    });
+  }
   button(id, label, action) {
     const t = theme();
     return div().id(id).size(26).flex_none().flex().items_center().justify_center().rounded(6).text_color(t.muted).hover(s => s.bg(t.hover).text_color(t.foreground))

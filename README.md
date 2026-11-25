@@ -10,7 +10,7 @@ It is built from [Agent Workspace](https://github.com/chelebyy/herdr-agent-works
 - `layouts/synthwave-84.svg`: its preview in Settings.
 - `themes/synthwave-84.json`: the palette. Named like the layout, so Settings offers it only there.
 - `mods/synthwave-84/`: carries the terminal font, [DejaVu Sans Mono](https://dejavu-fonts.github.io/) (Regular and Bold, Bitstream Vera licence, see `fonts/LICENSE.txt`). Herdr loads the fonts in a mod's `fonts/` folder at start; the mod draws nothing.
-- `mods/sw84-*`: the layout's panels (sidebar, tabs, agents, spaces, quota and system gauges, task presets, files, status bar, menus).
+- `mods/sw84-*`: the layout's panels (sidebar, tabs, agents, spaces, quota and system gauges, task presets, files, status bar, menus). `sw84-workspace-chrome` also shows a "Copied to clipboard" toast when a terminal selection settles (Herdr copies mouse selections on release, `copy_on_select`, on by default; no toast when it is off). Keyboard selections toast too, though nothing is copied.
 - `NOTICE` and `licenses/`: where the `sw84-*` mods come from, what changed, and the Apache-2.0 and MIT licences that cover them.
 
 ## Install

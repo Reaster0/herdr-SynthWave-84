@@ -35,7 +35,8 @@ Changes: renamed to sw84-*; English-only interface (Turkish removed); Android
 and team-pulse parts removed; window buttons at the top left; colours taken
 from the theme instead of fixed values; task presets read from
 ~/.agents/tasks.json; quota lists only signed-in providers; the agents list
-shows what each agent works on and groups agents by machine. Each modified main.js starts with a notice naming
+shows what each agent works on and groups agents by machine; the workspace
+chrome toasts when a terminal selection is copied. Each modified main.js starts with a notice naming
 its original.
 
 mods/sw84-space-folders keeps the folders file ~/.config/herdr-space-folders.json
